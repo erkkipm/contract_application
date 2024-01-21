@@ -1,0 +1,139 @@
+syntax = "proto3";
+
+package application;
+
+// используется при генерации файлов на GO
+option go_package = "erkkipm.application.v1;application";
+
+//import "github.com/erkkipm/contract_application/proto/model/application.proto";
+//
+
+service Application {
+  rpc Save(SaveRequest) returns (SaveResponse);
+  rpc Edit(EditRequest) returns (EditResponse);
+  rpc Get(GetRequest) returns (GetResponse);
+}
+
+message Registration {
+  uint64 id = 1;
+  string created = 2;
+  string updated = 3;
+  Competition competition = 4;
+  Person  author = 5;
+  Song song1 = 6;
+  Song  song2 = 7;
+  repeated string contracts = 8;
+}
+
+message Competition {
+  uint64 id = 1;
+  string created = 2;
+  string updated = 3;
+  string start = 4;
+  string end = 5;
+  repeated Keypoint keypoints = 6;
+}
+
+message  Keypoint {
+  uint64 id = 1;
+  string created = 2;
+  string updated = 3;
+  string start = 4;
+  string finish = 5;
+  string title = 6;
+  string description = 7;
+}
+
+message Person {
+  uint64 id = 1;
+  string created = 2;
+  string updated = 3;
+  string firstname = 4;
+  string middlename = 5;
+  string lastname = 6;
+  bool sex = 7;
+  string birthday = 8;
+  repeated string pass = 9;
+  repeated string phone = 10;
+  repeated string email = 11;
+  repeated string socials = 12;
+  string photo = 13;
+  string login = 14;
+  string city = 15;
+  string country = 16;
+  string bio = 17;
+}
+
+message Profile {
+  uint64 id = 1;
+  string created = 2;
+  string updated = 3;
+  Person person = 4;
+  repeated string entry = 5;
+}
+
+message Artist {
+  uint64 id = 1;
+  string created = 2;
+  string updated = 3;
+  string name = 4;
+  uint32 type = 5;
+  string city = 6;
+  string country = 7;
+  repeated string photo = 8;
+  string bio = 9;
+  repeated string socials = 10;
+  repeated string release = 11;
+  repeated Member members = 12;
+}
+
+message Member {
+  uint64 id = 1;
+  string created = 2;
+  string updated = 3;
+  uint64 person = 4; // Person - id
+
+}
+
+message Song {
+  uint64 id = 1;
+  string created = 2;
+  string updated = 3;
+  Artist artist = 4;
+  string title = 5;
+  repeated Person lyricist = 6;
+  repeated Person composer = 7;
+  repeated Person arranger = 8;
+  string audio = 9;
+  string video = 10;
+  repeated string pts = 11; // видеофайлы мультикамерной съемки
+  string release_date = 12; // дата выхода песни
+  string lyric  = 13;
+
+}
+
+message SaveRequest {
+  Registration registration = 1;
+}
+
+message SaveResponse {
+  uint64 id = 1;
+}
+
+message EditRequest {
+  Registration registration = 1;
+}
+
+message EditResponse {
+  Registration registration = 1;
+}
+
+message GetRequest {
+  int64 id = 1;
+}
+
+message GetResponse {
+  Registration registration = 1;
+}
+
+
